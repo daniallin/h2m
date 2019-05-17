@@ -116,7 +116,7 @@ module.exports = {
   p: function (node) {
     var md = node.md
     if (md) {
-      return `\n${md}\n`
+      return `${md}\n`
     }
   },
   div: function (node) {
@@ -133,6 +133,13 @@ module.exports = {
     // convert \n\n\n... to \n\n
     return result.replace(/(^\n+|\n+$)/g, '')
                  .replace(/\n{3,}/g, '\n\n')
+  },
+  //mathjax
+  script: function (node) {
+    var md = node.md
+     if (md) {
+        return `\$${md}\$`
+     }
   }
 }
 
@@ -205,6 +212,11 @@ Extra['img'] = function(node) {
 // Fenced Code Blocks
 Extra['pre'] = function(node) {
     return `\n\`\`\`\n${node.md}\n\`\`\`\n`
+}
+
+// mathjax
+Extra['script'] = function(node) {
+    return `${CommonMark['script'](node)}${getSpecialAttributes(node)}`
 }
 
 // Abbreviations

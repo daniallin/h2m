@@ -112,7 +112,7 @@ module.exports = {
   p: function (node) {
     var md = node.md
     if (md) {
-      return `\n${md}\n`
+      return `${md}\n`
     }
   },
   div: function (node) {
@@ -129,5 +129,17 @@ module.exports = {
     // convert \n\n\n... to \n\n
     return result.replace(/(^\n+|\n+$)/g, '')
                  .replace(/\n{3,}/g, '\n\n')
+  },
+
+  //mathjax
+  script: function (node) {
+    var md = node.md
+    var type = node.attrs.type
+    window.alert(type)
+    if (type === "math/tex"){
+      if (md) {
+        return `\$${md}\$`
+      }
+    }
   }
 }
