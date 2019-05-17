@@ -135,10 +135,14 @@ module.exports = {
   script: function (node) {
     var md = node.md
     var type = node.attrs.type
-    window.alert(type)
     if (type === "math/tex"){
       if (md) {
         return `\$${md}\$`
+      }
+    }
+    else if (type === "math/tex; mode=display"){
+      if (md) {
+        return `\n\$\$\n${md}\n\$\$\n`
       }
     }
   }

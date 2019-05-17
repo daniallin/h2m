@@ -137,9 +137,17 @@ module.exports = {
   //mathjax
   script: function (node) {
     var md = node.md
-     if (md) {
-        return `\$${md}\$`
-     }
+    var type = node.attrs.type
+    if (type === "math/tex"){
+        if (md) {
+            return `\$${md}\$`
+        }
+    }
+    else if (type === "math/tex; mode=display"){
+        if (md) {
+            return `\n\$\$\n${md}\n\$\$\n`
+        }
+    }
   }
 }
 
